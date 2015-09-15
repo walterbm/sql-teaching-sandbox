@@ -1,0 +1,8 @@
+//  sass --watch scss/style.scss:css/style.css --style compressed
+
+$red: red;
+
+h1{
+  color: $red;
+  background: green;
+}
