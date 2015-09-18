@@ -9,26 +9,37 @@ db.run("INSERT INTO test VALUES (?,?)", ["John", "Doe"]);
 db.run("INSERT INTO test VALUES (?,?)", ["Adam","Johnson"]);
 db.run("INSERT INTO test VALUES (?,?)", ["Jill", "Smith"]);
 
+// // Prepare a SQL statement for execution
+var statement = $("#commands").text();
+var executed = db.prepare(statement);
+executed.getAsObject();
 
-$.get('sql/SCOTUS.sqlite', function(data){
-  // var uInt8Array = new Uint8Array(e);
-  // var db = new SQL.Database(uInt8Array);
-  // var contents = db.exec("SELECT * FROM my_table");
-  // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-});
+// Output all database rows
+while(executed.step()) {
+    var row = executed.getAsObject();
+    var rowElement = "<tr><td>"+row.firstName+"</td><td>"+row.lastName+"</td></tr>";
+    $('#results').append(rowElement);
+}
 
+// Load from local SQLlite DB
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'sql/SCOTUS.sqlite', true);
+xhr.responseType = 'arraybuffer';
 
-// // Prepare a statement
-// var statement = $("#commands").text();
-// var executed = db.prepare(statement);
-// executed.getAsObject(); // {col1:1, col2:111}
+xhr.send();
 
-// // Bind new values
-// while(executed.step()) { //
-//     var row = executed.getAsObject();
-//     var rowElement = "<tr><td>"+row.firstName+"</td><td>"+row.lastName+"</td></tr>";
-//     $('#results').append(rowElement);
-// }
+xhr.onload = function(e) {
+  var uInt8Array = new Uint8Array(this.response);
+  var db = new SQL.Database(uInt8Array);
+  var contents = db.prepare("SELECT * FROM SCOTUS");
+  contents.getAsObject();
+  while(contents.step()) {
+    var row = contents.getAsObject();
+    var rowElement = "<tr><td>"+row.justiceName+"</td><td>"+row.post_mn+"</td></tr>";
+    $('#results').append(rowElement);
+  }
+};
+
 
 
 
