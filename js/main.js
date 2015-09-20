@@ -11,10 +11,6 @@ sandbox.runCommand("INSERT INTO test VALUES ('John', 'Doe')");
 sandbox.runCommand("INSERT INTO test VALUES ('Adam','Johnson')");
 sandbox.runCommand("INSERT INTO test VALUES ('Jill', 'Smith')");
 
-// Execute command and collect result
-var executed = sandbox.executeCommand("SELECT firstName FROM test");
-
-sandbox.addResultToPage(executed);
 
 
 
