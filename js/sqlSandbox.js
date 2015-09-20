@@ -35,3 +35,8 @@ SqlSandbox.prototype.runCommands = function(commandString){
   });
 };
 
+SqlSandbox.prototype.addResultToPage = function(results){
+  var rowElement = "<tr><td>"+row.justiceName+"</td><td>"+row.post_mn+"</td></tr>";
+  $('#results').append(rowElement);
+};
+

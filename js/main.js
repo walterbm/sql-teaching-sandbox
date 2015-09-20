@@ -1,18 +1,22 @@
 // Using SqlSandbox wrapper
-var db = new SqlSandbox();
+var sandbox = new SqlSandbox();
 
 // Create database
-db.runCommand("CREATE TABLE test (firstName, lastName);");
+sandbox.runCommand("CREATE TABLE test (firstName, lastName);");
 
 // Seed database
-db.runCommand("INSERT INTO test VALUES (?,?)", ["Hello","World"]);
-db.runCommand("INSERT INTO test VALUES (?,?)", ["Eve", "Jackson"]);
-db.runCommand("INSERT INTO test VALUES (?,?)", ["John", "Doe"]);
-db.runCommand("INSERT INTO test VALUES (?,?)", ["Adam","Johnson"]);
-db.runCommand("INSERT INTO test VALUES (?,?)", ["Jill", "Smith"]);
+sandbox.runCommand("INSERT INTO test VALUES ('Hello','World')");
+sandbox.runCommand("INSERT INTO test VALUES ('Eve', 'Jackson')");
+sandbox.runCommand("INSERT INTO test VALUES ('John', 'Doe')");
+sandbox.runCommand("INSERT INTO test VALUES ('Adam','Johnson')");
+sandbox.runCommand("INSERT INTO test VALUES ('Jill', 'Smith')");
 
 // Execute command and collect result
-var executed = db.executeCommand("SELECT * FROM test");
+var executed = sandbox.executeCommand("SELECT firstName FROM test");
+
+sandbox.addResultToPage(executed);
+
+
 
 
 
