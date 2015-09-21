@@ -1,8 +1,20 @@
 function SqlSandbox(){
   this.db = new SQL.Database();
   this.executed = {columns: [], values: []};
+  this.createCodeEditor();
   this.addEventListners();
 }
+
+SqlSandbox.prototype.createCodeEditor = function(){
+  this.editor = CodeMirror(document.getElementById('code'), {
+    mode:  'text/x-mysql',
+    indentWithTabs: true,
+    smartIndent: true,
+    lineNumbers: true,
+    matchBrackets : true,
+    autofocus: true,
+  });
+};
 
 SqlSandbox.prototype.addEventListners = function(){
   this.executeOnClick(this);
@@ -12,7 +24,8 @@ SqlSandbox.prototype.addEventListners = function(){
 SqlSandbox.prototype.executeOnClick = function(self){
   $("#execute").on("click", function(){
     $("#results").empty();
-    commands = $("#commands").val();
+    commands = self.editor.getValue();
+    debugger;
     self.executeCommand(commands);
   });
 };
@@ -50,8 +63,11 @@ SqlSandbox.prototype.executeCommand = function(commandString){
       this.executed = executed[0];
       this.addResultToPage();
     }
-    else{
+    else if(commandString.length === 0){
       throw "Error: empty command";
+    }
+    else{
+      throw "Error: no results";
     }
   }
   catch(exception){
