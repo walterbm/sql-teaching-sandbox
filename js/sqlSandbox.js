@@ -7,7 +7,6 @@ function SqlSandbox(){
 SqlSandbox.prototype.addEventListners = function(){
   this.executeOnClick(this);
   this.loadOnClick(this);
-  
 };
 
 SqlSandbox.prototype.executeOnClick = function(self){
@@ -58,8 +57,7 @@ SqlSandbox.prototype.executeCommand = function(commandString){
   catch(exception){
     this.addErrorMessage(exception);
     this.executed = {columns: [], values: []};
-  }
-  
+  } 
 };
 
 SqlSandbox.prototype.runCommand = function(commandString){
