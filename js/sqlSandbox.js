@@ -31,7 +31,6 @@ SqlSandbox.prototype.executeOnClick = function(self){
 
 SqlSandbox.prototype.loadOnClick = function(self){
   $(".load").on("click", function(){
-    debugger;
     var tableName = this.name;
     self.loadDb("sql/"+tableName+".sqlite", function(){
       self.addTableName(tableName);
@@ -140,3 +139,9 @@ SqlSandbox.prototype.addLoadingMessage = function(tableName){
 };
 
 var sandbox = new SqlSandbox();
+
+// TO DO
+// - executing mutiple commands
+// - link to SQL learning resources
+// - sqlhint?
+// - display table schema?
