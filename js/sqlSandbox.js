@@ -25,7 +25,6 @@ SqlSandbox.prototype.executeOnClick = function(self){
   $("#execute").on("click", function(){
     $("#results").empty();
     commands = self.editor.getValue();
-    debugger;
     self.executeCommand(commands);
   });
 };
@@ -61,13 +60,14 @@ SqlSandbox.prototype.executeCommand = function(commandString){
     executed = this.db.exec(commandString);
     if(executed.length > 0){ 
       this.executed = executed[0];
+      $(".alert").slideUp();
       this.addResultToPage();
     }
     else if(commandString.length === 0){
-      throw "Error: empty command";
+      throw new Error("Empty command");
     }
     else{
-      throw "Error: no results";
+      throw new Error("No results");
     }
   }
   catch(exception){
@@ -114,8 +114,10 @@ SqlSandbox.prototype.addColNamesToPage = function(){
   $('#results').append(colHeadingElement);
 };
 
-SqlSandbox.prototype.addErrorMessage = function(message){
+SqlSandbox.prototype.addErrorMessage = function(errorMessage){
+  var message = errorMessage.message;
   $("#results").empty();
-  $("#results").append("<span id='error'>"+message+"</span>");
+  $(".alert").slideDown();
+  $("#error-message").text(message);
 };
 
