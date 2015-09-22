@@ -3,19 +3,43 @@
 <head>
   <meta charset="utf8">
   <title>Sandbox SQL Demo</title>
-  <link rel=stylesheet href="css/style.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="css/vendor/codemirror.css">
+  <link rel=stylesheet href="css/style.css">
   <script src="js/vendor/jquery.min.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
   <script src="js/vendor/codemirror.min.js"></script>
 </head>
 <body>
-  <h1>Sandbox SQL interpreter</h1>
-  <p>
-  <div id="code"></div>
-  </p>
-  <button id="execute">Execute</button><button id="load" name="scotus">Load SCOTUS db</button>
-  <h3>Results</h3>
-  <table id="results" style="width:100%"></table>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Cardozo Coding: SQL</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrapper">
+    <h3>Editor:</h3>
+    <div id="code"></div>
+
+    <a href="#" class="btn btn-primary" id="execute">Run</a>
+    <div class="btn-group pull-right">
+      <a href="#" class="btn btn-default">Load Database</a>
+      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="#" id="load" name="scotus">Load SCOTUS db</a></li>
+      </ul>
+    </div>
+
+    <div class="alert alert-warning hidden">
+      <h4>Error!</h4>
+      <p id="error-message"></p>
+    </div>
+
+    <h3>Results:</h3>
+    <table class="table table-striped table-hover" id="results" style="width:100%"></table>
+  </div>
 
   <script type="text/javascript" src="js/vendor/sql.min.js"></script>
   <script type="text/javascript" src="js/sqlSandbox.js"></script>

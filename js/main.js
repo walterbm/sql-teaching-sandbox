@@ -11,6 +11,11 @@ sandbox.runCommand("INSERT INTO test VALUES ('John', 'Doe')");
 sandbox.runCommand("INSERT INTO test VALUES ('Adam','Johnson')");
 sandbox.runCommand("INSERT INTO test VALUES ('Jill', 'Smith')");
 
+// TO DO
+// - executing mutiple commands
+// - layout and design
+// - show currently loaded database + add more databases
+// - sqlhint
 
 
 

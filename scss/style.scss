@@ -1,8 +1,11 @@
 //  sass --watch scss/style.scss:css/style.css --style compressed
 
-$red: red;
-
-h1{
-  color: $red;
-  background: green;
+.wrapper{
+  margin: 2% 5%;
 }
+
+#code{
+  padding: 0.5em 0;
+}
+
+.cm-s-default { background: #FEF4EA; color: #202020; }
