@@ -30,9 +30,12 @@ SqlSandbox.prototype.executeOnClick = function(self){
 };
 
 SqlSandbox.prototype.loadOnClick = function(self){
-  $("#load").on("click", function(){
-    self.loadDb("sql/"+$("#load").attr("name")+".sqlite", function(){
-      $("#results").text("FINISHED LOADING TABLE: "+$("#load").attr("name"));
+  $(".load").on("click", function(){
+    debugger;
+    var tableName = this.name;
+    self.loadDb("sql/"+tableName+".sqlite", function(){
+      self.addTableName(tableName);
+      self.addLoadingMessage(tableName);
     });
   });
 };
@@ -64,7 +67,7 @@ SqlSandbox.prototype.executeCommand = function(commandString){
       this.addResultToPage();
     }
     else if(commandString.length === 0){
-      throw new Error("Empty command");
+      throw new Error("Code editor is empty");
     }
     else{
       throw new Error("No results");
@@ -114,10 +117,26 @@ SqlSandbox.prototype.addColNamesToPage = function(){
   $('#results').append(colHeadingElement);
 };
 
+SqlSandbox.prototype.addTableName = function(tableName){
+  $("#table-name").text(tableName);
+};
+
 SqlSandbox.prototype.addErrorMessage = function(errorMessage){
   var message = errorMessage.message;
   $("#results").empty();
+  $(".alert").removeClass("alert-success").addClass("alert-danger");
+  $("#alert-header").text("Error!");
+  $("#alert-message").text(message);
   $(".alert").slideDown();
-  $("#error-message").text(message);
 };
 
+SqlSandbox.prototype.addLoadingMessage = function(tableName){
+  var message = tableName + " table!";
+  $("#results").empty();
+  $(".alert").removeClass("alert-danger").addClass("alert-success");
+  $("#alert-header").text("Loaded!");
+  $("#alert-message").text(message);
+  $(".alert").slideDown();
+};
+
+var sandbox = new SqlSandbox();
