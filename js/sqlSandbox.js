@@ -23,9 +23,8 @@ SqlSandbox.prototype.addEventListners = function(){
 
 SqlSandbox.prototype.executeOnClick = function(self){
   $("#execute").on("click", function(){
-    $("#results").empty();
+    $("#all-results").empty();
     commands = self.editor.getValue();
-    $("#previous-command").text(commands);
     self.executeCommand(commands);
   });
 };
@@ -58,12 +57,13 @@ SqlSandbox.prototype.ajaxRequest = function(url, callback){
 };
 
 SqlSandbox.prototype.executeCommand = function(commandString){
-  var executed;
+  var executedCommands, self = this, commands = commandString.split(";");
   try {
-    executed = this.db.exec(commandString);
-    if(executed.length > 0){ 
-      this.executed = executed[0];
-      this.addResultToPage();
+    executedCommands = self.db.exec(commandString);
+    if(executedCommands.length > 0){ 
+      executedCommands.forEach(function(executed, index){
+        self.addResultContentToPage(executed,index,commands);
+      });
     }
     else if(commandString.length === 0){
       throw new Error("Code editor is empty");
@@ -73,8 +73,8 @@ SqlSandbox.prototype.executeCommand = function(commandString){
     }
   }
   catch(exception){
-    this.addErrorMessage(exception);
-    this.executed = {columns: [], values: []};
+    self.addErrorMessage(exception);
+    self.executed = {columns: [], values: []};
   } 
 };
 
@@ -90,22 +90,31 @@ SqlSandbox.prototype.runCommands = function(commandString){
   });
 };
 
+SqlSandbox.prototype.addResultContentToPage = function(executed, index, commands){
+  $("#all-results").append("&raquo <em>command #"+(index+1)+"</em>: <span class='command-history'>"+commands[index]+"</span>");
+  this.executed = executed;
+  this.addResultToPage();
+};
+
 SqlSandbox.prototype.addResultToPage = function(){
   $(".alert").slideUp();
-  this.addColNamesToPage();
-  this.addRowResultsToPage();
-  
+  var colNames = this.addColNamesToPage();
+  var rowResults = this.addRowResultsToPage();
+  var result = "<table class='table table-striped table-hover'>"+colNames+rowResults+"</table>";
+  $("#all-results").append(result);
 };
 
 SqlSandbox.prototype.addRowResultsToPage = function(){
+  var allRows = "";
   this.executed.values.forEach(function(row){
     var rowElement = "<tr>";
     row.forEach(function(value){
       rowElement += "<td>"+value+"</td>";
     });
     rowElement += "</tr>";
-    $('#results').append(rowElement);
+    allRows += rowElement;
   });
+  return allRows;
 };
 
 SqlSandbox.prototype.addColNamesToPage = function(){
@@ -114,7 +123,7 @@ SqlSandbox.prototype.addColNamesToPage = function(){
     colHeadingElement += "<td><strong>"+column+"</strong></td>";
   });
   colHeadingElement += "</tr>";
-  $('#results').append(colHeadingElement);
+  return colHeadingElement;
 };
 
 SqlSandbox.prototype.addTableName = function(tableName){
@@ -123,7 +132,7 @@ SqlSandbox.prototype.addTableName = function(tableName){
 
 SqlSandbox.prototype.addErrorMessage = function(errorMessage){
   var message = errorMessage.message;
-  $("#results").empty();
+  $("#all-results").empty();
   $(".alert").removeClass("alert-success").addClass("alert-danger");
   $("#alert-header").text("Error!");
   $("#alert-message").text(message);
@@ -132,7 +141,7 @@ SqlSandbox.prototype.addErrorMessage = function(errorMessage){
 
 SqlSandbox.prototype.addLoadingMessage = function(tableName){
   var message = tableName + " table!";
-  $("#results").empty();
+  $("#all-results").empty();
   $(".alert").removeClass("alert-danger").addClass("alert-success");
   $("#alert-header").text("Loaded!");
   $("#alert-message").text(message);

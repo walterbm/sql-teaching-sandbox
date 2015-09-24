@@ -27,10 +27,10 @@
     <a class="btn btn-primary" id="execute">Run</a>
     <div class="btn-group pull-right">
       <a class="btn btn-default" id="drop-down">Load Database</a>
-      <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+      <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
       <ul class="dropdown-menu">
-        <li><a href="#" class="load" name="SCOTUS">Load SCOTUS</a></li>
-        <li><a href="#" class="load" name="FIREHOUSES">Load N.Y. Firehouses</a></li>
+        <li><a class="load" name="SCOTUS">Load SCOTUS</a></li>
+        <li><a class="load" name="FIREHOUSES">Load N.Y. Firehouses</a></li>
       </ul>
     </div>
    
@@ -40,8 +40,7 @@
     </div>
 
     <h3>Results</h3>
-    Command: <span id="previous-command">n/a</span>
-    <table class="table table-striped table-hover" id="results" style="width:100%"></table>
+    <div id="all-results"></div>
   </div>
 
     <footer class="footer">Created By Walter Beller-Morales &amp; Aaron Wright</footer>
