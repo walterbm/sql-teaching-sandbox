@@ -60,7 +60,7 @@ SqlSandbox.prototype.executeCommand = function(commandString){
   var executedCommands, self = this, commands = commandString.split(";");
   try {
     executedCommands = self.db.exec(commandString);
-    if(executedCommands.length > 0){ 
+    if(executedCommands.length > 0){
       executedCommands.forEach(function(executed, index){
         self.addResultContentToPage(executed,index,commands);
       });
@@ -75,7 +75,7 @@ SqlSandbox.prototype.executeCommand = function(commandString){
   catch(exception){
     self.addErrorMessage(exception);
     self.executed = {columns: [], values: []};
-  } 
+  }
 };
 
 SqlSandbox.prototype.runCommand = function(commandString){
@@ -151,7 +151,5 @@ SqlSandbox.prototype.addLoadingMessage = function(tableName){
 var sandbox = new SqlSandbox();
 
 // TO DO
-// - executing mutiple commands
-// - link to SQL learning resources
 // - sqlhint?
 // - display table schema?
