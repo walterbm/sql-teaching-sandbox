@@ -1,0 +1,24 @@
+{
+  "name": "sql-teaching-sandbox",
+  "version": "1.0.0",
+  "description": "SQL Teaching Sandbox for the Cardozo Coding Classes",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walterbm/sql-teaching-sandbox.git"
+  },
+  "author": "Walter Beller-Morales",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/walterbm/sql-teaching-sandbox/issues"
+  },
+  "homepage": "https://github.com/walterbm/sql-teaching-sandbox#readme"
+}
